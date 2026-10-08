@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Story+Script&display=swap');
+
+/* 웹사이트 전체 글자 드래그 및 이미지 드래그 방지 */
+* {
+    -webkit-user-select: none; /* Safari, Chrome */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE 10+ */
+    user-select: none;         /* 기본 속성 */
+    -webkit-user-drag: none;   /* 이미지 드래그 방지 */
+}
+
+/* 페이지 전체 기본 설정 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 스크롤바 숨김 및 텍스트 선택 방지 */
+html, body {
+  background-color: #000;
+  color: #fff;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* 4단계 스크롤 공간 확보 (400vh) */
+.scroll-space {
+  height: 400vh;
+}
+
+/* 메인 비주얼 섹션 (화면에 고정) */
+.main-visual {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-image: url('source/bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 1. 이미지를 묶어주는 부모 컨테이너 */
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* ------------------------------------------------ */
+/* 2. 화면 그룹 공통 설정 및 스텝 애니메이션 */
+#group-first {
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  position: relative; 
+}
+
+#group-second {
+  opacity: 0;
+  transition: opacity 2s ease-in-out; 
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%; 
+}
+
+#group-third {
+  opacity: 0;
+  transition: opacity 2s ease-in-out; 
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%; 
+}
+
+/* 🚨 4단계 화면 그룹 설정 */
+#group-fourth {
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%; 
+  z-index: 10; /* 이미지들보다 위쪽에 오도록 설정 */
+}
+
+/* 각 그룹이 '나타날 때'의 대기 시간 설정 */
+body[data-step="1"] #group-first {
+  opacity: 1;
+  transition-delay: 0s; 
+}
+
+body[data-step="2"] #group-second {
+  opacity: 1;
+  transition-delay: 1s; 
+}
+
+/* 🚨 3단계일 때 투명도가 미리 적용되지 않고 선명하게(1) 유지되도록 강제 고정 */
+body[data-step="3"] #group-third {
+  opacity: 1 !important; 
+  transition-delay: 2s; 
+}
+
+/* 🚨 4단계 진입 시: 3단계 이미지에 투명도(0.35)를 주어 차분하게 만들고 텍스트 등장 */
+body[data-step="4"] #group-third {
+  opacity: 0.2; 
+  transition: opacity 1.5s ease-in-out;
+}
+
+body[data-step="4"] #group-fourth {
+  opacity: 1;
+  transition-delay: 0.8s; /* 이미지가 어두워질 때쯤 텍스트가 스르르 나타남 */
+}
+/* ------------------------------------------------ */
+
+/* 3. 공통 사람 이미지 설정 (기존 유지) */
+.person-img {
+  display: block;
+  height: 50vh; 
+  max-height: 540px; 
+}
+
+/* 3-1. 세 번째 사람 이미지 단독 설정 (기존 유지) */
+.person-img-third {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(calc(-50% - 20px), -50%);
+  height: 100%; 
+}
+
+/* 4. 공통 텍스트 이미지 설정 */
+.text-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+}
+
+/* 5. 텍스트 크기 개별 설정 */
+.text-first { width: 110%; }
+.text-second { width: 260%; } 
+
+/* ------------------------------------------------ */
+/* 🚨 4단계 안내 문구 및 START 버튼 디자인 */
+.intro-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  max-width: 800px; /* 문장이 자연스럽게 떨어지도록 넉넉하게 가로 폭 지정 */
+  padding: 0 20px;
+}
+
+.intro-content h2 {
+  font-size: 1.3rem;
+  font-weight: 600; /* 👈 [제목 굵기 변경] 300(얇게) ~ 700(두껍게) 중 원하시는 숫자로 변경하세요 */
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.intro-content p {
+  font-size: 0.95rem;
+  font-weight: 500; /* 👈 [설명글 굵기 변경] 300(얇게) ~ 500(조금 더 진하게) 중 원하시는 숫자로 변경하세요 */
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  color: #d1d1d1;
+}
+
+#start-btn {
+  padding: 8px 16px;
+  background-color: #fff;
+  color: #000;
+  border: none;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 500; /* 👈 [버튼 글씨 굵기] */
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Noto Sans KR', sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+#start-btn:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.05);
+}
+/* ------------------------------------------------ */
+
+/* --- 첫 번째 화면 몽환적인 블러 애니메이션 (기존 유지) --- */
+@keyframes blurPerson {
+  0% { filter: blur(10px); }
+  50% { filter: blur(0); }
+  100% { filter: blur(10px); }
+}
+
+@keyframes blurText {
+  0% { filter: blur(2px); }
+  50% { filter: blur(0); }
+  100% { filter: blur(2px); }
+}
+
+#group-first .person-img {
+  animation: blurPerson 3s infinite ease-in-out;
+}
+#group-first .text-first {
+  animation: blurText 3s infinite ease-in-out;
+}
+
+/* ======================================================= */
+/* 🚨 여기서부터 새로 추가된 스크롤 안내 문구 기능입니다! 🚨 */
+/* ======================================================= */
+
+/* 1. 스크롤 안내 문구의 위치와 모양 설정 */
+.scroll-indicator {
+  position: absolute;
+  /* 🚨 위치를 12%에서 5%로 줄여서 화면 더 아래쪽으로 내렸습니다 */
+  bottom: 7%; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4); 
+  font-size: 1rem;
+  
+  /* 🚨 글씨 굵기를 300(얇음)에서 500(조금 두꺼움)으로 변경했습니다. 더 두껍게 원하시면 700! */
+  font-weight: 500; 
+  
+  letter-spacing: 1.5px; 
+  z-index: 20; 
+  pointer-events: none; 
+  
+  /* 🚨 애니메이션 속도를 2s(2초)에서 3.5s(3.5초)로 늘려서 움직임을 훨씬 천천히 스무스하게 만들었습니다 */
+  animation: floatBreathe 4s infinite ease-in-out; 
+  
+  transition: opacity 1s ease-in-out, visibility 1s; 
+}
+
+/* 2. '∨' 화살표 모양 설정 */
+.scroll-arrow {
+  margin-top: 5px;
+  font-size: 1rem;
+  /* 🚨 화살표 굵기도 100에서 300으로 살짝 키워 텍스트와 맞췄습니다 */
+  font-weight: 400; 
+}
+
+/* 3. 천천히 깜빡이며 위아래로 움직이는 숨쉬기 애니메이션 */
+@keyframes floatBreathe {
+  0% { opacity: 0.1; transform: translate(-50%, 0); }
+  50% { opacity: 0.8; transform: translate(-50%, 5px); }
+  100% { opacity: 0.1; transform: translate(-50%, 0); }
+}
+
+/* 4. 마지막 4단계(START 버튼 화면)에 도달하면 스크롤 문구를 완전히 숨겨버리는 설정 */
+body[data-step="4"] .scroll-indicator {
+  opacity: 0;
+  visibility: hidden;
+}
+
+    /* PC 화면에서는 모바일용 줄바꿈 태그 숨기기 */
+  .m-br {
+    display: none;
+  }
+
+/* ========================================= */
+/* 📱 모바일 대응 (아이폰 15 Pro 규격 포함 768px 이하) */
+/* ========================================= */
+@media (max-width: 768px) {
+  /* 1단계, 2단계 글자 이미지 크기 축소 (화면 밖으로 나가지 않게) */
+  .text-first { width: 85%; } 
+  .text-second { width: 92%; } 
+
+  /* 사람 이미지 크기 축소 */
+  .person-img {
+    height: 36vh; /* 화면의 40% 정도만 차지하도록 줄임 */
+  }
+
+  /* 3단계 사람 이미지 크기 및 위치 미세 조정 */
+  .person-img-third {
+    height: 100%;
+    /* 모바일에서는 너무 왼쪽으로 치우치지 않게 중앙 쪽에 가깝게 조정 */
+    transform: translate(calc(-50% + 0px), -50%); 
+  }
+
+  /* 4단계 안내 문구 텍스트 크기 및 여백 조정 */
+  .intro-content {
+    padding: 0 25px; /* 양옆 여백 추가 */
+  }
+  
+  .intro-content h2 {
+    font-size: 1.15rem; /* 폰트 살짝 축소 */
+    margin-bottom: 0.8rem;
+  }
+  
+  /* 🚨 p 태그 쪽에 word-break 속성 추가 */
+  .intro-content p {
+    font-size: 0.7rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    padding: 0 20px;
+    word-break: keep-all; /* 단어가 중간에 찢어지지 않고 통째로 넘어가게 보호! */
+  }
+  
+  #start-btn {
+    padding: 8px 24px;
+    font-size: 0.85rem;
+  }
+
+  /* 🚨 5. 모바일 화면일 때는 스크롤 문구를 살짝 작게 조절 */
+  .scroll-indicator {
+    /* 🚨 모바일에서도 바닥 쪽으로 더 내리려면 여기를 10%에서 4% 정도로 줄여주세요 */
+    bottom: 6%; 
+    font-size: 0.9rem; 
+  }
+  .scroll-arrow {
+    font-size: 0.9rem; 
+  }
+}

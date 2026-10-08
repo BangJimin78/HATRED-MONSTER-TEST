@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HATRED MONSTER TEST</title>
+    <link rel="stylesheet" href="myStyle1.css">
+    <script src="myScript1.js" defer></script>
+</head>
+
+<body>
+  <!-- 메인 이미지 섹션 -->
+   <div id="main">
+      <section class="main-visual">
+        <!-- 1~3단계 이미지가 들어있는 기존 박스 -->
+        <div class="image-wrapper">
+          <div id="group-first" class="scene-group">
+            <img src="source/main_img_first.png" class="person-img" alt="메인 사람 이미지 1">
+            <img src="source/hatred_monster_test.png" class="text-img text-first" alt="타이틀 텍스트">
+          </div>
+
+          <div id="group-second" class="scene-group">
+            <img src="source/main_img_second.png" class="person-img" alt="메인 사람 이미지 2">
+            
+            <!-- 🚨 picture 태그를 이용해 화면 크기별로 다른 이미지를 불러옵니다 -->
+            <picture>
+              <!-- 모바일(768px 이하)일 때 불러올 이미지 -->
+              <source media="(max-width: 768px)" srcset="source/main_wkli_m.png">
+              <!-- PC 기본 이미지 (위 조건에 안 맞으면 기존 이미지가 출력됨) -->
+              <img src="source/main_wkli.png" class="text-img text-second" alt="두 번째 타이틀 텍스트">
+            </picture>
+          </div>
+
+          <div id="group-third" class="scene-group">
+            <img src="source/main_img_third.png" class="person-img-third" alt="메인 사람 이미지 3">
+          </div>
+        </div>
+
+        <!-- 🚨 4단계 화면 그룹을 이미지 밖(main-visual 바로 아래)으로 이동! -->
+        <div id="group-fourth" class="scene-group">
+          <!-- 🚨 4단계 화면 그룹 내부의 텍스트 부분만 이렇게 수정해! -->
+          <div class="intro-content">
+            <h2>혐오 괴물 진단 테스트</h2>
+            <p>
+              오늘날 현대 사회에서 혐오는 일상 깊숙이 스며들어 있습니다.<br>
+              모르는 사이에 누군가에게 상처가 되는 말과 행동을 <br class="m-br">남기고 있었을지도 모릅니다.<br>
+              지금 당신의 안에서 어떤 혐오 괴물이 <br class="m-br">자라나고 있는지 확인해 보세요.
+            </p>
+            <button id="start-btn" onclick="location.href='test.html'">START</button>
+          </div>
+        </div>
+
+        <div class="scroll-indicator">
+          화면을 스크롤해 주세요
+          <p class="scroll-arrow">v</p>
+        </div>
+
+      </section>
+   </div>
+
+   <!-- 스크롤을 내릴 수 있도록 가상의 빈 공간 -->
+   <div class="scroll-space"></div>
+</body>
+</html>

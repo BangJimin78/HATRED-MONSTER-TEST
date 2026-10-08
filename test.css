@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+/* 웹사이트 전체 글자 드래그 및 이미지 드래그 방지 */
+* {
+    -webkit-user-select: none; /* Safari, Chrome */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE 10+ */
+    user-select: none;         /* 기본 속성 */
+    -webkit-user-drag: none;   /* 이미지 드래그 방지 */
+}
+
+body {
+    background-color: #000;
+    background-image: url('source/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    color: #fff;
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.test-container {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    padding: 20px;
+}
+
+/* 홈 버튼 */
+.home-btn {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.home-btn:hover { background: rgba(255, 255, 255, 0.4); }
+.home-btn svg { width: 21px; height: 21px; fill: #fff; }
+
+/* 질문 영역 */
+#question-area { margin-bottom: 30px; margin-top: 20px; }
+
+#q-title { 
+    font-size: 1.5rem; 
+    margin-bottom: 12px; 
+    text-align: left; 
+    opacity: 1; 
+    font-weight: 550; 
+}
+
+#q-text { 
+    font-size: 1.25rem; 
+    margin-bottom: 30px; 
+    margin-top: 0; 
+    text-align: left; 
+    font-weight: 500; 
+    line-height: 1.6; 
+}
+
+/* 답변 버튼 */
+.ans-btn {
+    display: block;
+    width: 100%;
+    padding: 18px 20px;
+    margin-bottom: 25px;
+    border-radius: 60px;
+    border: none;
+    background: #fff;
+    color: #000;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s, background 0.2s, opacity 0.3s;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.5;
+}
+
+/* 선택되었을 때 */
+.ans-btn.selected {
+    opacity: 1;
+    transform: scale(1.02);
+}
+
+/* 선택되지 않았을 때 */
+.ans-btn.dimmed {
+    opacity: 0.3;
+}
+
+.ans-btn:hover { transform: scale(1.02); background: #f5f5f5; }
+
+/* 하단 내비게이션 */
+.nav-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 35px;
+}
+
+#back-btn, #next-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: none;
+    background: rgba(255, 255, 255, 0.4);
+    color: #000;
+    font-weight: 450;
+    font-family: 'Noto Sans KR', sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+#back-btn:hover, #next-btn:hover {
+    background: rgba(255, 255, 255, 0.7);
+    transform: scale(1.05);
+}
+
+#progress {
+    padding: 8px 16px 10px;
+    border-radius: 20px;
+    border: none;
+    background: rgba(27, 27, 27, 0.6);
+    color: #ffffff;
+    font-weight: 450;
+    font-family: 'Noto Sans KR', sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+#custom-alert {
+    position: fixed;
+    top: -50px; /* 초기 위치를 화면 밖으로 */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.55);
+    color: #000;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: 'Noto Sans KR', sans-serif;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    transition: all 0.5s ease;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+#custom-alert.show {
+    top: 40px; /* 나타날 때의 위치 (홈 버튼 근처) */
+    opacity: 1;
+}
+
+/* PC 화면에서는 모바일용 띄어쓰기 공간 숨기기 */
+.br-space {
+    display: none;
+}
+
+
+
+/* ========================================= */
+/* 📱 모바일 대응 (아이폰 15 Pro 규격 포함 768px 이하) */
+/* ========================================= */
+@media (max-width: 768px) {
+    .test-container {
+        padding: 15px 45px; /* 모바일에서는 양옆 여백을 살짝 줄여서 넉넉한 공간 확보 */
+    }
+
+    #custom-alert.show {
+        top: 40px;
+    }
+
+    /* 홈 버튼 위치 및 크기 살짝 축소 (공간 확보용) */
+    .home-btn {
+        top: 30px;
+        width: 33px;
+        height: 33px;
+    }
+    .home-btn svg { width: 18px; height: 18px; }
+
+    /* 질문 영역 텍스트 크기 조정 */
+    #question-area { 
+        margin-top: 40px; /* 홈 버튼과 겹치지 않게 위쪽 간격 띄우기 */
+        margin-bottom: 20px; 
+    }
+    #q-title { 
+        font-size: 1.25rem; 
+        margin-bottom: 8px; 
+    }
+    #q-text { 
+        font-size: 1.05rem; 
+        margin-bottom: 20px; 
+        word-break: keep-all; /* 모바일에서 한국어 단어가 기괴하게 찢어지지 않게 보호! */
+    }
+
+    /* 답변 버튼 크기 및 여백 축소 (한 화면에 잘 들어오게) */
+    .ans-btn {
+        padding: 14px 18px;
+        margin-bottom: 14px;
+        font-size: 0.7rem;
+        word-break: keep-all; /* 답변 텍스트도 단어 단위로 깔끔하게 떨어지게 보호 */
+        line-height: 1.45;
+    }
+
+    /* 하단 내비게이션 크기 살짝 축소 */
+    .nav-area {
+        margin-top: 20px;
+    }
+    #back-btn, #next-btn {
+        padding: 7px 15px;
+        font-size: 0.8rem;
+    }
+    #progress {
+        padding: 7px 15px 9px;
+        font-size: 0.8rem;
+    }
+
+    /* 🚨 모바일에서는 PC용 줄바꿈을 없애고, 띄어쓰기를 살립니다! */
+    .pc-br {
+        display: none;
+    }
+    .br-space {
+        display: inline;
+    }
+}

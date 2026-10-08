@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+/* 웹사이트 전체 글자 드래그 및 이미지 드래그 방지 */
+* {
+    -webkit-user-select: none; /* Safari, Chrome */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE 10+ */
+    user-select: none;         /* 기본 속성 */
+    -webkit-user-drag: none;   /* 이미지 드래그 방지 */
+}
+
+body {
+    background-color: #000;
+    background-image: url('source/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    color: #fff;
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.result-container {
+    width: 100%;
+    max-width: 900px; /* 결과 카드가 넓게 들어가므로 넉넉하게 설정 */
+    text-align: center;
+    padding: 20px;
+}
+
+/* 상단 텍스트 */
+.result-top-text {
+    margin-bottom: 15px;
+}
+
+.sub-desc {
+    font-size: 0.85rem;
+    opacity: 0.35;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+}
+
+.main-title {
+    font-size: 1.75rem;
+    font-weight: 500;
+    letter-spacing: 0px;
+    margin-top: 12px;
+    margin-bottom: 35px;
+}
+
+/* 메인 콘텐츠 카드 (좌우 배치) */
+.result-content-card {
+    display: flex;
+    flex-wrap: nowrap; /* 🚨 상하로 떨어지는 것을 절대 방지하고 좌우로 고정합니다 */
+    gap: 20px;
+    align-items: stretch;
+    justify-content: center; /* 🚨 이 줄을 추가하여 좌우 박스 묶음을 화면 중앙에 배치합니다 */
+    margin-bottom: 35px;
+}
+
+/* 좌측 이미지 칸 */
+.monster-img-box {
+    flex: 0.65;
+    max-width: 250px; /* 🚨 최대 가로 폭을 제한하고 싶다면 이 줄을 추가하세요 */
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.monster-img-box img {
+    width: 100%;
+    max-height: 320px;
+    object-fit: contain;
+}
+
+/* 우측 정보 칸 */
+.monster-info-box {
+    flex: 0.55; /* 우측 비율 */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+/* 괴물 이름 칸 (영문명이 한글 이름 바로 옆에 오도록 수정) */
+.monster-name-card {
+    background: rgba(40, 40, 40, 0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-start; /* 🚨 좌측 정렬로 변경 */
+    align-items: baseline;      /* 🚨 글자 아랫선을 자연스럽게 맞춤 */
+    gap: 8px;                   /* 🚨 한글 이름과 영문 이름 사이의 간격 조절 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.korean-name {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.english-name {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    font-weight: 400;
+}
+
+/* 괴물 설명 칸 */
+.monster-desc-card {
+    background: rgba(255, 255, 255, 0.95);
+    color: #000;
+    border-radius: 16px;
+    padding: 10px 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    height: 1005px; /* 높이 맞춤 */
+    max-height: 250px;
+    overflow-y: auto; /* 내용이 길면 스크롤 */
+    line-height: 1.45;
+}
+
+.monster-desc-card::-webkit-scrollbar {
+    width: 4px;
+}
+.monster-desc-card::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.monster-desc-card h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #111;
+}
+
+.monster-desc-card p {
+    font-size: 0.8rem;
+    line-height: 1.65;
+    color: #444;
+    font-weight: 400;
+}
+
+/* 하단 MAIN 버튼 영역 */
+.nav-area {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+#main-btn {
+    padding: 8px 19px;
+    border-radius: 30px;
+    border: none;
+    background: rgba(255, 255, 255, 0.6);
+    color: #000;
+    font-weight: 450;
+    font-family: 'Noto Sans KR', sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    letter-spacing: 0.3px;
+}
+
+#main-btn:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.05);
+}
+
+/* PC 화면에서는 모바일용 띄어쓰기 공간 숨기기 */
+.br-space {
+    display: none;
+}
+
+/* ========================================= */
+/* 📱 모바일 대응 (아이폰 15 Pro 규격 포함 768px 이하) */
+/* ========================================= */
+@media (max-width: 768px) {
+    
+    /* 🚨 1. 내용이 위아래로 쌓여서 화면이 길어지므로 스크롤을 허용해야 합니다! */
+    body {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto; /* 내용이 길면 아래로 스크롤 가능하게 해제 */
+        padding: 5px 0 5px; /* 위아래 여유 공간 확보 */
+    }
+
+    .result-container {
+        padding: 0 25px; /* 양옆 여백 */
+    }
+
+    /* 상단 안내 텍스트 조절 */
+    .sub-desc {
+        font-size: 0.65rem;
+    }
+    .main-title {
+        font-size: 1.15rem;
+        margin-top: 8px;
+        margin-bottom: 25px;
+    }
+
+    /* 🚨 2. 좌우 배치를 [위-아래 배치]로 변경하는 핵심 마법! */
+    .result-content-card {
+        flex-direction: column; /* 세로(위아래) 방향으로 쌓기 */
+        align-items: center;    /* 가운데 정렬 */
+        gap: 15px;              /* 박스 사이 간격 살짝 좁히기 */
+        margin-bottom: 25px;
+    }
+
+/* 3. 괴물 이미지 칸 (위쪽으로 이동됨) */
+    .monster-img-box {
+        width: 190px;           /* 🚨 가로로 뚱뚱하게 늘어나지 않게 PC(250px)보다 살짝 작게 고정 */
+        aspect-ratio: 1 / 1.15; /* 🚨 PC 버전과 똑같은 '세로로 살짝 긴' 비율로 완벽하게 록(Lock)을 겁니다! */
+        flex: none;           
+        padding: 15px;
+        /* 이미지가 박스 정중앙에 예쁘게 오도록 설정 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .monster-img-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;    /* 🚨 이미지가 잘리거나 찌그러지지 않고 박스 비율 안에 쏙 들어가게 보호 */
+        max-height: none;       
+    }
+
+    /* 4. 괴물 정보 칸 (아래쪽으로 이동됨) */
+    .monster-info-box {
+        width: 82%;
+        max-width: 350px;     /* 모바일에서 텍스트가 너무 퍼지지 않게 너비 제한 */
+        flex: none;           /* PC의 비율(0.55) 무시 */
+        gap: 12px;
+    }
+
+    /* 이름 박스 글씨 및 여백 축소 */
+    .monster-name-card {
+        padding: 10px 16px;
+    }
+    .korean-name {
+        font-size: 0.8rem;
+    }
+    .english-name {
+        font-size: 0.55rem;
+    }
+
+    /* 설명 박스 스크롤 및 글자 찢어짐 방지 조절 */
+    .monster-desc-card {
+        padding: 10px 20px;
+        max-height: 222px;     /* 박스 높이를 조금 키워줌 */
+    }
+    .monster-desc-card h3 {
+        font-size: 0.65rem;
+        line-height: 1.5;
+        word-break: keep-all;  /* 단어 단위로 깔끔하게 떨어지게 보호 */
+    }
+    .monster-desc-card p {
+        font-size: 0.62rem;
+        line-height: 1.6;
+        word-break: keep-all;  /* 단어 단위로 깔끔하게 떨어지게 보호 */
+    }
+
+    /* MAIN 버튼 여백 및 크기 조절 */
+    .nav-area {
+        margin-top: 15px;
+    }
+    #main-btn {
+        padding: 8px 25px;
+        font-size: 0.8rem;
+    }
+
+    /* 🚨 모바일에서는 PC용 줄바꿈을 없애고, 띄어쓰기를 살립니다! */
+    .pc-br {
+        display: none;
+    }
+    .br-space {
+        display: inline;
+    }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HATRED MONSTER RESULT</title>
+    <link rel="stylesheet" href="result.css">
+    <!-- 🚨 결과 데이터를 바꿔치기 할 자바스크립트 파일 연결 -->
+    <script src="result.js" defer></script>
+</head>
+<body>
+    <div class="result-container">
+        <!-- 상단 안내 텍스트 -->
+        <div class="result-top-text">
+            <p class="sub-desc">결과에 해당하는 카드를 수령해 주세요</p>
+            <h1 class="main-title">당신 안에서 자라고 있는 괴물은</h1>
+        </div>
+
+        <!-- 메인 콘텐츠 카드 영역 (좌측 이미지 + 우측 정보) -->
+        <div class="result-content-card">
+            <!-- 좌측 괴물 이미지 칸 -->
+            <div class="monster-img-box">
+                <!-- 🚨 id="monster-img" 추가 -->
+                <img id="monster-img" src="" alt="괴물 이미지">
+            </div>
+
+            <!-- 우측 정보 칸 (이름 + 설명) -->
+            <div class="monster-info-box">
+                <!-- 괴물 이름 칸 (한글 + 영문) -->
+                <div class="monster-name-card">
+                    <!-- 🚨 id 추가 -->
+                    <span id="monster-name-kr" class="korean-name"></span>
+                    <span id="monster-name-en" class="english-name"></span>
+                </div>
+
+                <!-- 괴물 설명 칸 -->
+                <div class="monster-desc-card">
+                    <!-- 🚨 id 추가 -->
+                    <h3 id="monster-subtitle"></h3>
+                    <p id="monster-desc"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 하단 메인 화면으로 돌아가는 버튼 -->
+        <div class="nav-area">
+            <button id="main-btn" onclick="location.href='index.html'">MAIN</button>
+        </div>
+    </div>
+</body>
+</html>
